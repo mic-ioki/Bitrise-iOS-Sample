@@ -10,3 +10,4 @@ In order to sign the app during the `deploy` workflow archive step, you must set
 
 
 test
+test
