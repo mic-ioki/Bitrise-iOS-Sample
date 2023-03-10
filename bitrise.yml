@@ -22,7 +22,7 @@ app:
     opts:
       is_expand: false
 trigger_map:
-- push_branch: master
+- push_branch: *
   workflow: primary
 - pull_request_source_branch: '*'
   workflow: primary
