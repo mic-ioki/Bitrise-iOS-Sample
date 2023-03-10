@@ -11,3 +11,4 @@ In order to sign the app during the `deploy` workflow archive step, you must set
 test - upt.
 Test 2
 Test 3
+Test 4
