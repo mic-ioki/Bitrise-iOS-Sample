@@ -46,7 +46,7 @@ workflows:
         - content: |
             #!/usr/bin/env bash
             set -euo pipefail
-            CURRENT_ATTEMPT=`expr $CURRENT_ATTEMPT +1`
+            CURRENT_ATTEMPT=`expr $CURRENT_ATTEMPT + 1`
             echo "Current attempt: ${CURRENT_ATTEMPT}, limit: ${ATTEMPT_LIMIT}"
     - build-router-start@0:
         inputs:
