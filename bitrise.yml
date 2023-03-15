@@ -30,13 +30,31 @@ trigger_map:
   workflow: deploy
 workflows:
   debug:
+    envs:
+    - ATTEMPT_LIMIT: "10"
+      opts:
+        is_expand: false
+    - CURRENT_ATTEMPT: "0"
+      opts:
+        is_expand: false
     steps:
     - activate-ssh-key@4: {}
     - git-clone@8: {}
-    - script@1: {}
+    - script:
+        title: Print env
+        run_if: '{{getenv "TARGET_BUILD_LIMIT" | le "0"}}'
+        inputs:
+        - content: |
+            #!/usr/bin/env bash
+            set -euo pipefail
+            CURRENT_ATTEMPT=`expr $CURRENT_ATTEMPT +1`
+            echo "Current attempt: ${CURRENT_ATTEMPT}, limit: ${ATTEMPT_LIMIT}"
     - build-router-start@0:
         inputs:
         - workflows: debug
+        - wait_for_builds: "false"
+        - verbose: "yes"
+        - environment_key_list: $CURRENT_ATTEMPT
         - access_token: $BITRISE_ACCESS_TOKEN
   deploy:
     steps:
