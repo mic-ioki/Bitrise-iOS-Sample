@@ -43,11 +43,11 @@ workflows:
         - content: |
             #!/usr/bin/env bash
             set -euo pipefail
-
-            if [[ "$CURRENT_ATTEMPT" ]]; then
-                CURRENT_ATTEMPT=`expr $CURRENT_ATTEMPT + 1`
-            else
+            
+            if [ -z ${CURRENT_ATTEMPT+x} ]; then
                 CURRENT_ATTEMPT=1
+            else
+                CURRENT_ATTEMPT=`expr $CURRENT_ATTEMPT + 1`
             fi
 
             echo "Current attempt: ${CURRENT_ATTEMPT}, limit: ${ATTEMPT_LIMIT}"
