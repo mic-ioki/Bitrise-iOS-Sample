@@ -31,7 +31,7 @@ trigger_map:
 workflows:
   debug:
     envs:
-    - ATTEMPT_LIMIT: "10"
+    - ATTEMPT_LIMIT: "4"
       opts:
         is_expand: false
     - CURRENT_ATTEMPT: "0"
@@ -42,6 +42,7 @@ workflows:
     - git-clone@8: {}
     - script:
         title: Print env
+        run_if: '{{getenv "CURRENT_ATTEMPT" | gt (getenv "ATTEMPT_LIMIT")}}'
         inputs:
         - content: |
             #!/usr/bin/env bash
@@ -50,6 +51,7 @@ workflows:
             echo "Current attempt: ${CURRENT_ATTEMPT}, limit: ${ATTEMPT_LIMIT}"
             envman add --key CURRENT_ATTEMPT --value "$CURRENT_ATTEMPT"
     - build-router-start@0:
+        run_if: .IsCI
         inputs:
         - workflows: debug
         - wait_for_builds: "false"
