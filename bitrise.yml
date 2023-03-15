@@ -42,7 +42,6 @@ workflows:
     - git-clone@8: {}
     - script:
         title: Print env
-        run_if: '{{getenv "TARGET_BUILD_LIMIT" | le "0"}}'
         inputs:
         - content: |
             #!/usr/bin/env bash
