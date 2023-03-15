@@ -29,8 +29,12 @@ trigger_map:
 - tag: "*.*.*"
   workflow: deploy
 workflows:
+<<<<<<< HEAD
   debug:
     envs:
+=======
+  envs:
+>>>>>>> b9e37a0 (update config)
     - ATTEMPT_LIMIT: "10"
       opts:
         is_expand: false
@@ -42,7 +46,10 @@ workflows:
     - git-clone@8: {}
     - script:
         title: Print env
+<<<<<<< HEAD
         run_if: '{{getenv "TARGET_BUILD_LIMIT" | le "0"}}'
+=======
+>>>>>>> b9e37a0 (update config)
         inputs:
         - content: |
             #!/usr/bin/env bash
