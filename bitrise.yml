@@ -48,6 +48,7 @@ workflows:
             set -euo pipefail
             CURRENT_ATTEMPT=`expr $CURRENT_ATTEMPT + 1`
             echo "Current attempt: ${CURRENT_ATTEMPT}, limit: ${ATTEMPT_LIMIT}"
+            envman add --key CURRENT_ATTEMPT --value "$CURRENT_ATTEMPT"
     - build-router-start@0:
         inputs:
         - workflows: debug
